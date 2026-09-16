@@ -1,0 +1,65 @@
+// =========================================================
+// Smart Energy Analytics - DAX Measures for Power BI
+// =========================================================
+
+// 1. Total Consumption (kWh)
+Total Consumption (kWh) = 
+SUM('daily_energy_consumption'[total_kwh])
+
+// 2. Average Daily Consumption (kWh)
+Avg Daily Consumption (kWh) = 
+AVERAGE('daily_energy_consumption'[total_kwh])
+
+// 3. Total Households
+Total Households = 
+DISTINCTCOUNT('household_energy_summary'[lcl_id])
+
+// 4. Total Meter Readings
+Total Readings = 
+SUM('daily_energy_consumption'[reading_count])
+
+// 5. Peak Daily Consumption (kWh)
+Peak Daily Consumption = 
+MAXX('daily_energy_consumption', 'daily_energy_consumption'[total_kwh])
+
+// 6. Total Anomalies Count
+Total Anomalies = 
+COUNTROWS('energy_anomalies')
+
+// 7. Critical Anomalies Count
+Critical Anomalies = 
+CALCULATE(
+    COUNTROWS('energy_anomalies'),
+    'energy_anomalies'[severity] = "Critical"
+)
+
+// 8. Weekday vs Weekend Ratio
+Weekend Consumption = 
+CALCULATE(
+    SUM('daily_energy_consumption'[total_kwh]),
+    'daily_energy_consumption'[is_weekend] = 1
+)
+
+Weekday Consumption = 
+CALCULATE(
+    SUM('daily_energy_consumption'[total_kwh]),
+    'daily_energy_consumption'[is_weekend] = 0
+)
+
+// 9. Forecast Next 30 Days Total (kWh)
+Forecasted 30-Day Demand (kWh) = 
+CALCULATE(
+    SUM('energy_forecast'[forecast_kwh]),
+    ISBLANK('energy_forecast'[actual_kwh])
+)
+
+// 10. Forecast Variance (%)
+Forecast Variance % = 
+VAR Actual = SUM('energy_forecast'[actual_kwh])
+VAR Forecast = SUM('energy_forecast'[forecast_kwh])
+RETURN
+IF(
+    NOT(ISBLANK(Actual)) && NOT(ISBLANK(Forecast)),
+    DIVIDE(Actual - Forecast, Actual, 0),
+    BLANK()
+)

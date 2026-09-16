@@ -1,0 +1,126 @@
+# ==============================================================================
+# Smart Energy Consumption Analytics - .gitignore
+# ==============================================================================
+# IMPORTANT: This file prevents the 8.54 GB dataset, Docker runtime data,
+# credentials, generated logs, and secrets from being committed.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# DATASET - The real 8.54 GB CSV MUST NOT be committed to GitHub
+# ------------------------------------------------------------------------------
+data/
+*.csv
+*.parquet
+*.jsonl
+*.json.gz
+*.avro
+*.orc
+
+# Keep the placeholder to preserve the directory structure
+!data/.gitkeep
+
+# ------------------------------------------------------------------------------
+# ENVIRONMENT VARIABLES & SECRETS - NEVER commit real credentials
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.secret
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+secrets/
+credentials/
+
+# ------------------------------------------------------------------------------
+# PYTHON ARTIFACTS
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ------------------------------------------------------------------------------
+# SPARK RUNTIME DATA & CHECKPOINTS
+# Do NOT commit checkpoints, event logs, or work data
+# ------------------------------------------------------------------------------
+spark/work/
+spark/checkpoints/
+spark/events/
+spark-warehouse/
+metastore_db/
+derby.log
+*.sparklog
+spark-error.log
+clickhouse-spark.log
+
+# ------------------------------------------------------------------------------
+# AIRFLOW RUNTIME LOGS
+# ------------------------------------------------------------------------------
+airflow/logs/*
+!airflow/logs/.gitkeep
+
+# ------------------------------------------------------------------------------
+# CLICKHOUSE RUNTIME DATA FILES
+# Docker volumes contain the actual database data - never commit these
+# ------------------------------------------------------------------------------
+clickhouse_data/
+clickhouse_logs/
+docker/clickhouse/data/
+docker/clickhouse/logs/
+
+# ------------------------------------------------------------------------------
+# KAFKA RUNTIME DATA FILES
+# Kafka stores broker state and log segments on disk
+# ------------------------------------------------------------------------------
+kafka_data/
+kafka/data/
+docker/kafka/data/
+
+# ------------------------------------------------------------------------------
+# DOCKER VOLUME DATA & TEMPORARY FILES
+# ------------------------------------------------------------------------------
+postgres_data/
+redis_data/
+spark_data/
+spark_events/
+spark_ivy/
+.docker/
+docker/volumes/
+
+# ------------------------------------------------------------------------------
+# LOG FILES (generated at runtime)
+# ------------------------------------------------------------------------------
+logs/
+*.log
+*.log.*
+
+# ------------------------------------------------------------------------------
+# IDE & EDITOR FILES
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------------------------
+# OS FILES
+# ------------------------------------------------------------------------------
+desktop.ini
+ehthumbs.db
