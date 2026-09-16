@@ -9,15 +9,13 @@
 # DATASET - The real 8.54 GB CSV MUST NOT be committed to GitHub
 # ------------------------------------------------------------------------------
 data/
+data/*
 *.csv
 *.parquet
 *.jsonl
 *.json.gz
 *.avro
 *.orc
-
-# Keep the placeholder to preserve the directory structure
-!data/.gitkeep
 
 # ------------------------------------------------------------------------------
 # ENVIRONMENT VARIABLES & SECRETS - NEVER commit real credentials
