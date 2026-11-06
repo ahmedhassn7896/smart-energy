@@ -1,4 +1,4 @@
-# Smart Energy Consumption Analytics
+# 🔋 Smart Energy Consumption Analytics
 
 > **A production-grade Big Data Engineering & Analytics platform processing the real London Smart Meter Dataset (~8.54 GB, ~167 million half-hourly readings) through a fully containerized, end-to-end streaming, batch, and AI-powered pipeline.**
 
